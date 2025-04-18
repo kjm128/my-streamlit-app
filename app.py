@@ -1,5 +1,5 @@
 import streamlit as st
-from datetime import datetime, timedelta, time
+from zoneinfo import ZoneInfo
 
 # ---------------------
 # スタイル設定（ベージュ系＋タイムテーブル見やすく）
@@ -81,7 +81,7 @@ st.title("🌿 コース別タイムテーブル表示アプリ")
 st.markdown("やさしいタッチでスケジュールをすっきり確認")
 
 # 現在時刻（手動変更可）
-now = datetime.now()
+now = datetime.now(ZoneInfo("Asia/Tokyo"))
 default_time = time(now.hour, now.minute)
 selected_time = st.time_input("現在時刻を選択", default_time)
 
