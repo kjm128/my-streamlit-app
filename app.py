@@ -106,7 +106,7 @@ st.markdown("### 🕘 現在時刻を選択")
 selected_hour = st.selectbox("時", list(range(10, 20)), index=0)
 
 # 分選択（0, 15, 30, 45）
-selected_minute = st.selectbox("分", [0, 15, 30, 45], index=0)
+selected_minute = st.selectbox("分", [00,05,10,15,20,25,30,35,40,45,50,55], index=0)
 
 # 選択された時間＋分を datetime.time に変換
 selected_time = time(selected_hour, selected_minute)
