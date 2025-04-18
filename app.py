@@ -1,106 +1,119 @@
 import streamlit as st
-from datetime import datetime, timedelta
-import pandas as pd
+from datetime import datetime, timedelta, time
 
-# ページ設定（スマホ表示に優しい設定）
-st.set_page_config(
-    page_title="コーススケジューラー",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
-
-# カスタムCSS（スマホ向け文字サイズ調整 & padding 調整）
+# ---------------------
+# スタイル設定（ベージュ系）
+# ---------------------
 st.markdown("""
-<style>
-    html, body, [class*="css"] {
-        font-size: 18px !important;
+    <style>
+    body {
+        background-color: #F5E1C0;
     }
-    .stTextInput, .stSelectbox {
-        font-size: 18px !important;
+    .main {
+        background-color: #F5E1C0;
     }
     .block-container {
-        padding: 1rem 1rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
-</style>
+    table {
+        background-color: white;
+        border-radius: 8px;
+        padding: 10px;
+    }
+    </style>
 """, unsafe_allow_html=True)
 
-st.title("🧖‍♀️ ドライヘッドスパ コーススケジューラー")
-
-# コースデータ
+# ---------------------
+# コース定義
+# ---------------------
 courses = {
     "A. 小頭/小顔ドライヘッドスパ（60分）": [
-        ("ストレッチ", 10),
-        ("首・僧帽筋ほぐし", 15),
-        ("ヘッドスパ（左右15分ずつ）", 30),
-        ("正面ヘッドスパ", 5),
-        ("顔ほぐし", 5),
+        (10, "ストレッチ"),
+        (15, "首・僧帽筋ほぐし"),
+        (30, "ヘッドスパ（左右15分ずつ）"),
+        (5, "正面ヘッドスパ"),
+        (5, "顔ほぐし")
     ],
     "B. 小頭/小顔ドライヘッドスパ（75分）": [
-        ("ストレッチ", 10),
-        ("ミミスパ", 5),
-        ("首・肩甲骨・腕", 20),
-        ("ヘッドスパ（左右15分ずつ）", 30),
-        ("正面ヘッドスパ", 5),
-        ("顔ほぐし", 5),
+        (10, "ストレッチ"),
+        (5, "ミミスパ"),
+        (20, "首・肩甲骨・腕"),
+        (30, "ヘッドスパ（左右15分ずつ）"),
+        (5, "正面ヘッドスパ"),
+        (5, "顔ほぐし")
     ],
     "C. ディープボディドライケア（60分）": [
-        ("右向き", 15),
-        ("左向き", 15),
-        ("背中", 15),
-        ("ヘッド", 15),
+        (15, "右向き"),
+        (15, "左向き"),
+        (15, "背中"),
+        (15, "ヘッド")
     ],
     "D. ディープボディドライケア（75分）": [
-        ("右向き", 20),
-        ("左向き", 20),
-        ("背中", 15),
-        ("ヘッド", 20),
+        (20, "右向き"),
+        (20, "左向き"),
+        (15, "背中"),
+        (20, "ヘッド")
     ],
     "E. ディープボディドライケア（105分）": [
-        ("右向き", 20),
-        ("移動", 1),
-        ("左向き", 20),
-        ("移動", 2),
-        ("足（左右）", 20),
-        ("背中", 20),
-        ("移動", 3),
-        ("ヘッド", 20),
-    ],
+        (20, "右向き"),
+        (1, "移動"),
+        (20, "左向き"),
+        (2, "移動"),
+        (20, "足（左右）"),
+        (20, "背中"),
+        (3, "移動"),
+        (20, "ヘッド")
+    ]
 }
 
+# ---------------------
+# UI要素
+# ---------------------
+st.title("🌿 コース別タイムテーブル表示アプリ")
+st.markdown("やさしいタッチでスケジュールをすっきり確認")
+
+# 現在時刻（手動変更可）
+now = datetime.now()
+default_time = time(now.hour, now.minute)
+selected_time = st.time_input("現在時刻を選択", default_time)
+
 # コース選択
-course_name = st.selectbox("コースを選択してください", list(courses.keys()))
+selected_course = st.selectbox("コース一覧", list(courses.keys()))
 
-# 現在時刻入力
-now = st.time_input("現在の時刻を入力してください", value=datetime.now().time())
+# ---------------------
+# 処理・出力
+# ---------------------
+if selected_course:
+    steps = courses[selected_course]
+    start_dt = datetime.combine(datetime.today(), selected_time)
+    current_time = start_dt
+    timetable = []
 
-# 開始時刻のdatetime変換
-start_time = datetime.combine(datetime.today(), now)
+    total_duration = sum([min for min, _ in steps])
+    end_time = start_dt + timedelta(minutes=total_duration)
 
-# タイムスケジュールの処理と表示
-if course_name:
-    steps = courses[course_name]
-    total_minutes = sum(duration for _, duration in steps)
-    end_time = start_time + timedelta(minutes=total_minutes)
-
-    st.subheader("📋 コース情報")
-    st.markdown(f"**🕒 合計時間：{total_minutes}分**")
-    st.markdown(f"**✅ 終了予定時刻：{end_time.strftime('%H:%M')}**")
-
-    st.markdown("### 🗓️ タイムスケジュール")
-
-    # タイムテーブルをテーブル形式で表示
-    schedule_data = []
-    current_time = start_time
-    for step_name, duration in steps:
-        next_time = current_time + timedelta(minutes=duration)
-        schedule_data.append({
-            "開始": current_time.strftime("%H:%M"),
-            "終了": next_time.strftime("%H:%M"),
-            "内容": step_name
+    # タイムテーブル生成
+    for duration, description in steps:
+        step_start = current_time
+        step_end = step_start + timedelta(minutes=duration)
+        timetable.append({
+            "開始時刻": step_start.strftime("%H:%M"),
+            "終了時刻": step_end.strftime("%H:%M"),
+            "内容": description
         })
-        current_time = next_time
+        current_time = step_end
 
-        import streamlit as st
+    # ---------------------
+    # 表示
+    # ---------------------
+    st.markdown("---")
+    st.subheader("📋 コース情報")
 
-st.title("Hello, Streamlit!")
-st.write("これは最初のStreamlitアプリです✨")
+    st.write(f"**合計時間：** {total_duration} 分")
+    st.write(f"**終了予定時刻：** {end_time.strftime('%H:%M')}")
+
+    st.markdown("---")
+    st.subheader("🕒 タイムテーブル")
+
+    st.table(timetable)
