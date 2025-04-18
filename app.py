@@ -180,3 +180,5 @@ if selected_course:
 # 下に余白を追加
 st.markdown("<br><br><br>", unsafe_allow_html=True)
 st.markdown("<br><br><br>", unsafe_allow_html=True)
+
+import streamlit as st
