@@ -39,7 +39,7 @@ st.markdown("""
 courses = {
     "A. 小頭/小顔ドライヘッドスパ（60分）": [
         (10, "ストレッチ"),
-        (15, "首・僧帽筋ほぐし"),
+        (10, "首・僧帽筋ほぐし"),
         (30, "ヘッドスパ（左右15分ずつ）"),
         (5, "正面ヘッドスパ"),
         (5, "顔ほぐし")
@@ -79,8 +79,20 @@ courses = {
 # ---------------------
 # UI要素
 # ---------------------
-st.title("🌿 コース別タイムテーブル表示アプリ")
-st.markdown("やさしいタッチでスケジュールをすっきり確認")
+st.markdown("""
+    <h1 style='
+        text-align: center;
+        color: #5D3A00;
+        font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px 2px rgba(93, 58, 0, 0.1);
+        margin-bottom: 2rem;
+    '>
+        Dry Head Spa GOKUJO CourseTime
+    </h1>
+""", unsafe_allow_html=True)
+
 
 # 日本時間（JST）で現在時刻を取得
 jst = pytz.timezone("Asia/Tokyo")
@@ -129,3 +141,10 @@ if selected_course:
     st.subheader("🕒 タイムテーブル")
 
     st.table(timetable)
+
+# 表示
+st.subheader("🕒 タイムテーブル")
+st.table(timetable)
+
+# 下に余白を追加
+st.markdown("<br><br><br>", unsafe_allow_html=True)
