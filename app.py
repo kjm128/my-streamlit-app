@@ -79,17 +79,17 @@ courses = {
 st.markdown("""
     <h1 style='
         text-align: center;
-        color: #5D3A00;
-        font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-        font-size: 2.5rem;
-        letter-spacing: 2px;
-        text-shadow: 1px 1px 2px rgba(93, 58, 0, 0.1);
-        margin-bottom: 2rem;
+        font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+        font-size: 2.2rem;
+        font-weight: 600;
+        color: #3C2F2F;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
     '>
-        Dry Head Spa GOKUJO CourseTime
+        Dry Head Spa GOKUJO
+        CourseTime
     </h1>
 """, unsafe_allow_html=True)
-
 
 from datetime import datetime, time
 import pytz
@@ -160,7 +160,7 @@ if selected_course:
     # 表示
     # ---------------------
     st.markdown("---")
-    st.subheader("📋 コース情報")
+    st.subheader("📋 施術時間")
 
     st.write(f"**合計時間：** {total_duration} 分")
     st.write(f"**終了予定時刻：** {end_time.strftime('%H:%M')}")
