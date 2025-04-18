@@ -2,10 +2,7 @@ import streamlit as st
 import pytz
 from datetime import datetime, time, timedelta
 
-
-# ---------------------
-# スタイル設定（ベージュ系＋タイムテーブル見やすく）
-# ---------------------
+# ▼ ここがCSS（スタイル）
 st.markdown("""
     <style>
     body {
