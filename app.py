@@ -108,9 +108,23 @@ with col1:
     selected_hour = st.selectbox("時を選択", list(range(10, 20)), index=0, key="select_hour")
 
 with col2:
-    selected_minute = st.selectbox("分を選択", [00,05,10,15,20,25,30,35,40,45,50,55], index=0, key="select_minute")
+    minute_options = {
+        "00": 0,
+        "05”: 5,
+        "10": 10,
+        "15": 15,
+        "20": 20,
+        "25": 25,
+        "30": 30,
+        "35": 35,
+        "40": 40,
+        "45": 45,
+        "50": 50,
+        "55": 55
+    }
+    selected_minute_label = st.selectbox("分を選択", list(minute_options.keys()), key="select_minute")
+    selected_minute = minute_options[selected_minute_label]
 
-# --- 時刻を time オブジェクトにまとめる ---
 selected_time = time(selected_hour, selected_minute)
 
 # --- datetime として使う場合 ---
