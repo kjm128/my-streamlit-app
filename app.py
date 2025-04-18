@@ -1,5 +1,5 @@
-import pytz
 from datetime import datetime, time
+from zoneinfo import ZoneInfo
 
 # ---------------------
 # スタイル設定（ベージュ系＋タイムテーブル見やすく）
@@ -80,14 +80,14 @@ courses = {
 st.title("🌿 コース別タイムテーブル表示アプリ")
 st.markdown("やさしいタッチでスケジュールをすっきり確認")
 
-import pytz
-from datetime import datetime, time
 
-# 日本時間を取得（pytz版）
-jst = pytz.timezone("Asia/Tokyo")
-now = datetime.now(jst)
+# 日本時間で現在時刻を取得
+now = datetime.now(ZoneInfo("Asia/Tokyo"))
 default_time = time(now.hour, now.minute)
+
+# ユーザーが現在時刻を変更できるようにする
 selected_time = st.time_input("現在時刻を選択", default_time)
+
 
 
 # コース選択
