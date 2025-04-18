@@ -1,5 +1,5 @@
-import streamlit as st
-from datetime import datetime, timedelta, time
+import pytz
+from datetime import datetime, time
 
 # ---------------------
 # スタイル設定（ベージュ系＋タイムテーブル見やすく）
@@ -80,15 +80,13 @@ courses = {
 st.title("🌿 コース別タイムテーブル表示アプリ")
 st.markdown("やさしいタッチでスケジュールをすっきり確認")
 
-# 現在時刻（手動変更可）
+import pytz
 from datetime import datetime, time
-from zoneinfo import ZoneInfo
 
-# 日本時間で現在時刻を取得
-now = datetime.now(ZoneInfo("Asia/Tokyo"))
+# 日本時間を取得（pytz版）
+jst = pytz.timezone("Asia/Tokyo")
+now = datetime.now(jst)
 default_time = time(now.hour, now.minute)
-
-# ユーザーが現在時刻を変更できるようにする
 selected_time = st.time_input("現在時刻を選択", default_time)
 
 
