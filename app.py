@@ -1,5 +1,5 @@
-from datetime import datetime, time
-from zoneinfo import ZoneInfo
+import streamlit as st
+from datetime import datetime, timedelta, time
 
 # ---------------------
 # スタイル設定（ベージュ系＋タイムテーブル見やすく）
@@ -37,7 +37,7 @@ st.markdown("""
 courses = {
     "A. 小頭/小顔ドライヘッドスパ（60分）": [
         (10, "ストレッチ"),
-        (10, "首・僧帽筋ほぐし"),
+        (15, "首・僧帽筋ほぐし"),
         (30, "ヘッドスパ（左右15分ずつ）"),
         (5, "正面ヘッドスパ"),
         (5, "顔ほぐし")
@@ -80,15 +80,10 @@ courses = {
 st.title("🌿 コース別タイムテーブル表示アプリ")
 st.markdown("やさしいタッチでスケジュールをすっきり確認")
 
-
-# 日本時間で現在時刻を取得
-now = datetime.now(ZoneInfo("Asia/Tokyo"))
+# 現在時刻（手動変更可）
+now = datetime.now()
 default_time = time(now.hour, now.minute)
-
-# ユーザーが現在時刻を変更できるようにする
 selected_time = st.time_input("現在時刻を選択", default_time)
-
-
 
 # コース選択
 selected_course = st.selectbox("コース一覧", list(courses.keys()))
