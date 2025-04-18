@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime, timedelta, time
 
 # ---------------------
-# スタイル設定（ベージュ系）
+# スタイル設定（ベージュ系＋タイムテーブル見やすく）
 # ---------------------
 st.markdown("""
     <style>
@@ -17,9 +17,16 @@ st.markdown("""
         padding-bottom: 2rem;
     }
     table {
-        background-color: white;
-        border-radius: 8px;
-        padding: 10px;
+        background-color: #F5E1C0 !important;
+        color: #5D3A00 !important;
+        font-weight: 500;
+    }
+    th {
+        background-color: #EBD3B0 !important;
+        color: #5D3A00 !important;
+    }
+    td {
+        background-color: #FFF8EF !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -30,7 +37,7 @@ st.markdown("""
 courses = {
     "A. 小頭/小顔ドライヘッドスパ（60分）": [
         (10, "ストレッチ"),
-        (10, "首・僧帽筋ほぐし"),
+        (15, "首・僧帽筋ほぐし"),
         (30, "ヘッドスパ（左右15分ずつ）"),
         (5, "正面ヘッドスパ"),
         (5, "顔ほぐし")
@@ -70,7 +77,8 @@ courses = {
 # ---------------------
 # UI要素
 # ---------------------
-st.title("ドライヘッドスパGOKUJO コース時間計算アプリ")
+st.title("🌿 コース別タイムテーブル表示アプリ")
+st.markdown("やさしいタッチでスケジュールをすっきり確認")
 
 # 現在時刻（手動変更可）
 now = datetime.now()
@@ -106,7 +114,7 @@ if selected_course:
     # ---------------------
     # 表示
     # ---------------------
- st.markdown("---")
+    st.markdown("---")
     st.subheader("📋 コース情報")
 
     st.write(f"**合計時間：** {total_duration} 分")
