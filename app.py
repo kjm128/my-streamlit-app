@@ -91,35 +91,30 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# 日本時間（JST）で現在時刻を取得
+from datetime import datetime, time
+import pytz
+import streamlit as st
+
+# --- 日本時間（JST）の現在時刻取得（参考用） ---
 jst = pytz.timezone("Asia/Tokyo")
 now = datetime.now(jst)
-default_time = time(now.hour, now.minute)
 
-# 現在時刻を選択できるように表示
-selected_time = st.time_input("現在時刻を選択", default_time)
-
-# --- 時間と分の選択（10:00〜19:00、15分刻み）---
 st.markdown("### 🕘 現在時刻を選択")
 
-# 時間選択（10〜19時）
-selected_hour = st.selectbox("時", list(range(10, 20)), index=0)
-
-# 分選択（0, 15, 30, 45）
-selected_minute = st.selectbox("分", [00,05,10,15,20,25,30,35,40,45,50,55], index=0)
-
-# 選択された時間＋分を datetime.time に変換
-selected_time = time(selected_hour, selected_minute)
-
-start_dt = datetime.combine(datetime.today(), selected_time)
-
+# --- 時と分を分けて選択（10:00〜19:00、15分刻み）---
 col1, col2 = st.columns(2)
 
 with col1:
     selected_hour = st.selectbox("時を選択", list(range(10, 20)), index=0, key="select_hour")
 
 with col2:
-    selected_minute = st.selectbox("分を選択", [0, 15, 30, 45], index=0, key="select_minute")
+    selected_minute = st.selectbox("分を選択", [00,05,10,15,20,25,30,35,40,45,50,55], index=0, key="select_minute")
+
+# --- 時刻を time オブジェクトにまとめる ---
+selected_time = time(selected_hour, selected_minute)
+
+# --- datetime として使う場合 ---
+start_dt = datetime.combine(datetime.today(), selected_time)
 
 # コース選択
 selected_course = st.selectbox("コース一覧", list(courses.keys()))
