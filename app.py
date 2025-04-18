@@ -114,10 +114,12 @@ selected_time = time(selected_hour, selected_minute)
 start_dt = datetime.combine(datetime.today(), selected_time)
 
 col1, col2 = st.columns(2)
+
 with col1:
-    selected_hour = st.selectbox("時", list(range(10, 20)), index=0)
+    selected_hour = st.selectbox("時を選択", list(range(10, 20)), index=0, key="select_hour")
+
 with col2:
-    selected_minute = st.selectbox("分", [0, 15, 30, 45], index=0)
+    selected_minute = st.selectbox("分を選択", [0, 15, 30, 45], index=0, key="select_minute")
 
 # コース選択
 selected_course = st.selectbox("コース一覧", list(courses.keys()))
