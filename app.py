@@ -142,9 +142,5 @@ if selected_course:
 
     st.table(timetable)
 
-# 表示
-st.subheader("🕒 タイムテーブル")
-st.table(timetable)
-
 # 下に余白を追加
 st.markdown("<br><br><br>", unsafe_allow_html=True)
