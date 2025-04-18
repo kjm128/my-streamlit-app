@@ -77,18 +77,25 @@ courses = {
 # UI要素
 # ---------------------
 st.markdown("""
-    <h1 style='
+    <div style='
+        background-color: #8B6F47;
+        padding: 1.2rem;
+        border-radius: 10px;
         text-align: center;
-        font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-        font-size: 2.2rem;
-        font-weight: 600;
-        color: #3C2F2F;
-        letter-spacing: 1px;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
     '>
-        Dry Head Spa GOKUJO
+        <h1 style='
+            color: #FFFFFF;
+            font-family: "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+        '>
+            Dry Head Spa GOKUJO
         CourseTime
-    </h1>
+        </h1>
+    </div>
 """, unsafe_allow_html=True)
 
 from datetime import datetime, time
