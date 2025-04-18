@@ -9,26 +9,26 @@ from datetime import datetime, time, timedelta
 st.markdown("""
     <style>
     body {
-        background-color: #F5E1C0;
+        background-color: #FFFFFF;
     }
     .main {
-        background-color: #F5E1C0;
+        background-color: #FFFFFF;
     }
     .block-container {
         padding-top: 2rem;
-        padding-bottom: 2rem;
+        padding-bottom: 4rem;
     }
     table {
-        background-color: #F5E1C0 !important;
+        background-color: #FFFDF9 !important;
         color: #5D3A00 !important;
         font-weight: 500;
     }
     th {
-        background-color: #EBD3B0 !important;
+        background-color: #F2E8DA !important;
         color: #5D3A00 !important;
     }
     td {
-        background-color: #FFF8EF !important;
+        background-color: #FFFAF0 !important;
     }
     </style>
 """, unsafe_allow_html=True)
